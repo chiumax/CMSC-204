@@ -8,9 +8,9 @@ import org.junit.Test;
 
 public class NotationQueueTest {
 	public NotationQueue<String> stringQ;
-	public String a="a", b="b", c="c", d="d", e="e", f="f";
+	public String a = "a", b = "b", c = "c", d = "d", e = "e", f = "f";
 	public ArrayList<String> fill = new ArrayList<String>();
-	
+
 	// STUDENT: student tests will use the doubleQ
 	public NotationQueue<Double> doubleQ;
 	// STUDENT: add variables as needed for your student tests
@@ -21,8 +21,8 @@ public class NotationQueueTest {
 		stringQ.enqueue(a);
 		stringQ.enqueue(b);
 		stringQ.enqueue(c);
-		
-		//STUDENT: add setup for doubleQ for student tests
+
+		// STUDENT: add setup for doubleQ for student tests
 	}
 
 	@After
@@ -33,7 +33,7 @@ public class NotationQueueTest {
 
 	@Test
 	public void testIsEmpty() throws QueueUnderflowException {
-		assertEquals(false,stringQ.isEmpty());
+		assertEquals(false, stringQ.isEmpty());
 		stringQ.dequeue();
 		stringQ.dequeue();
 		stringQ.dequeue();
@@ -46,22 +46,30 @@ public class NotationQueueTest {
 			assertEquals(a, stringQ.dequeue());
 			assertEquals(b, stringQ.dequeue());
 			assertEquals(c, stringQ.dequeue());
-			//Queue is empty, next statement should cause QueueUnderFlowException
+			// Queue is empty, next statement should cause QueueUnderFlowException
 			stringQ.dequeue();
 			assertTrue("This should have caused an QueueUnderflowException", false);
-		}
-		catch (QueueUnderflowException e){
+		} catch (QueueUnderflowException e) {
 			assertTrue("This should have caused an QueueUnderflowException", true);
-		}
-		catch (Exception e){
+		} catch (Exception e) {
 			assertTrue("This should have caused an QueueUnderflowException", false);
 		}
 	}
-	
+
 	@Test
 	public void testDequeueStudent() {
-		//Use the doubleQ for student tests
-		fail("Not yet implemented");
+		try {
+			assertEquals(a, stringQ.dequeue());
+			assertEquals(b, stringQ.dequeue());
+			assertEquals(c, stringQ.dequeue());
+			// Queue is empty, next statement should cause QueueUnderFlowException
+			stringQ.dequeue();
+			assertTrue("This should have caused an QueueUnderflowException", false);
+		} catch (QueueUnderflowException e) {
+			assertTrue("This should have caused an QueueUnderflowException", true);
+		} catch (Exception e) {
+			assertTrue("This should have caused an QueueUnderflowException", false);
+		}
 	}
 
 	@Test
@@ -82,22 +90,32 @@ public class NotationQueueTest {
 			assertEquals(4, stringQ.size());
 			assertEquals(true, stringQ.enqueue(e));
 			assertEquals(5, stringQ.size());
-			//Queue is full, next statement should cause QueueOverFlowException
+			// Queue is full, next statement should cause QueueOverFlowException
 			stringQ.enqueue(f);
 			assertTrue("This should have caused an QueueOverflowException", false);
-		}
-		catch (QueueOverflowException e){
+		} catch (QueueOverflowException e) {
 			assertTrue("This should have caused an QueueOverflowException", true);
-		}
-		catch (Exception e){
+		} catch (Exception e) {
 			assertTrue("This should have caused an QueueOverflowException", false);
 		}
 	}
 
 	@Test
 	public void testEnqueueStudent() {
-		//Use the doubleQ for student tests
-		fail("Not yet implemented");
+		try {
+			assertEquals(3, stringQ.size());
+			assertEquals(true, stringQ.enqueue(d));
+			assertEquals(4, stringQ.size());
+			assertEquals(true, stringQ.enqueue(e));
+			assertEquals(5, stringQ.size());
+			// Queue is full, next statement should cause QueueOverFlowException
+			stringQ.enqueue(f);
+			assertTrue("This should have caused an QueueOverflowException", false);
+		} catch (QueueOverflowException e) {
+			assertTrue("This should have caused an QueueOverflowException", true);
+		} catch (Exception e) {
+			assertTrue("This should have caused an QueueOverflowException", false);
+		}
 	}
 
 	@Test
@@ -116,11 +134,14 @@ public class NotationQueueTest {
 		stringQ.enqueue(e);
 		assertEquals("abcde", stringQ.toString());
 	}
-	
+
 	@Test
-	public void testToStringStudent() {
-		//Use the doubleQ for student tests
-		fail("Not yet implemented");
+	public void testToStringStudent() throws QueueOverflowException {
+		assertEquals("abc", stringQ.toString());
+		stringQ.enqueue(d);
+		assertEquals("abcd", stringQ.toString());
+		stringQ.enqueue(e);
+		assertEquals("abcde", stringQ.toString());
 	}
 
 	@Test
@@ -137,14 +158,14 @@ public class NotationQueueTest {
 		fill.add("apple");
 		fill.add("banana");
 		fill.add("carrot");
-		//start with an empty queue
+		// start with an empty queue
 		stringQ = new NotationQueue<String>(5);
-		//fill with an ArrayList
+		// fill with an ArrayList
 		stringQ.fill(fill);
-		assertEquals(3,stringQ.size());
+		assertEquals(3, stringQ.size());
 		assertEquals("apple", stringQ.dequeue());
 		assertEquals("banana", stringQ.dequeue());
-		assertEquals("carrot", stringQ.dequeue());		
+		assertEquals("carrot", stringQ.dequeue());
 	}
 
 }

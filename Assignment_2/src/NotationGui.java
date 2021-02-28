@@ -25,7 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
  
-public class NotationGui2 extends Application {
+public class NotationGui extends Application {
 
 	private TextField infixtxt, infixtxt2, postfixtxt, postfixtxt2;
 	private Label infixlbl, infixlbl2,postfixlbl, postfixlbl2,evalanswerlbl, evalanswer;
@@ -78,7 +78,7 @@ public class NotationGui2 extends Application {
 				try{
 					infixtxt2.setText("");
 					String postfixExpr = postfixtxt2.getText();
-					double a = Notation2.evaluatePostfixExpression(postfixExpr);
+					double a = Notation.evaluatePostfixExpression(postfixExpr);
 					evalanswerlbl.setVisible(true);
 					evalanswer.setVisible(true);
 					evalanswer.setText(Double.toString(Notation.evaluatePostfixExpression(postfixExpr)));
@@ -95,10 +95,10 @@ public class NotationGui2 extends Application {
 				try{
 					postfixtxt2.setText("");
 					String infixExpr = infixtxt2.getText();
-					double a = Notation2.evaluateInfixExpression(infixExpr);
+					double a = Notation.evaluateInfixExpression(infixExpr);
 					evalanswerlbl.setVisible(true);
 					evalanswer.setVisible(true);
-					evalanswer.setText(Double.toString(Notation2.evaluateInfixExpression(infixExpr)));
+					evalanswer.setText(Double.toString(Notation.evaluateInfixExpression(infixExpr)));
 				}
 				catch (InvalidNotationFormatException exception)
 				{

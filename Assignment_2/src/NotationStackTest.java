@@ -68,8 +68,20 @@ public class NotationStackTest {
 
 	@Test
 	public void testPopStudent() {
-		//Use the doubleQ for student tests
-		fail("Not yet implemented");
+		try {
+			assertEquals(c, stringS.pop());
+			assertEquals(b, stringS.pop());
+			assertEquals(a, stringS.pop());
+			//Queue is empty, next statement should cause QueueUnderFlowException
+			stringS.pop();
+			assertTrue("This should have caused an StackUnderflowException", false);
+		}
+		catch (StackUnderflowException e){
+			assertTrue("This should have caused an StackUnderflowException", true);
+		}
+		catch (Exception e){
+			assertTrue("This should have caused an StackUnderflowException", false);
+		}
 	}
 	
 	@Test
@@ -114,8 +126,22 @@ public class NotationStackTest {
 
 	@Test
 	public void testPushStudent() {
-		//Use the doubleQ for student tests
-		fail("Not yet implemented");
+		try {
+			assertEquals(3, stringS.size());
+			assertEquals(true, stringS.push(d));
+			assertEquals(4, stringS.size());
+			assertEquals(true, stringS.push(e));
+			assertEquals(5, stringS.size());
+			//Queue is full, next statement should cause QueueOverFlowException
+			stringS.push(f);
+			assertTrue("This should have caused an StackOverflowException", false);
+		}
+		catch (StackOverflowException e){
+			assertTrue("This should have caused an StackOverflowException", true);
+		}
+		catch (Exception e){
+			assertTrue("This should have caused an StackOverflowException", false);
+		}
 	}
 	
 	@Test
@@ -128,9 +154,12 @@ public class NotationStackTest {
 	}
 
 	@Test
-	public void testToStringStudent() {
-		//Use the doubleQ for student tests
-		fail("Not yet implemented");
+	public void testToStringStudent() throws StackOverflowException {
+		assertEquals("abc", stringS.toString());
+		stringS.push(d);
+		assertEquals("abcd", stringS.toString());
+		stringS.push(e);
+		assertEquals("abcde", stringS.toString());
 	}
 	
 	@Test
