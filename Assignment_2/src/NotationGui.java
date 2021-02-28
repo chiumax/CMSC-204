@@ -48,7 +48,7 @@ public class NotationGui extends Application {
 					if(infixToPostfix.isSelected())
 					{
 						infix = infixtxt.getText();
-						result = Notation2.convertInfixToPostfix(infix);
+						result = Notation.convertInfixToPostfix(infix);
 						postfixlbl.setVisible(true);
 						postfixtxt.setVisible(true);
 						postfixtxt.setText(result);
@@ -58,7 +58,7 @@ public class NotationGui extends Application {
 					else if(postfixToInfix.isSelected())
 					{
 						postfix = postfixtxt.getText();
-						result = Notation2.convertPostfixToInfix(postfix);
+						result = Notation.convertPostfixToInfix(postfix);
 						System.out.println("result "+result);
 						infixlbl.setVisible(true);
 						infixtxt.setVisible(true);

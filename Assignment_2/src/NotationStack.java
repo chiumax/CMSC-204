@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class NotationStack<T> implements StackInterface<T> {
 	private ArrayList<T> s;
 	private int size;
-	
+
 	public NotationStack(int count) {
 		s = new ArrayList<T>(count);
 		size = count;
@@ -21,18 +21,18 @@ public class NotationStack<T> implements StackInterface<T> {
 
 	@Override
 	public T pop() throws StackUnderflowException {
-		if(isEmpty()) {
+		if (isEmpty()) {
 			throw new StackUnderflowException();
 		}
-		return s.remove(s.size()-1);
+		return s.remove(s.size() - 1);
 	}
 
 	@Override
 	public T top() throws StackUnderflowException {
-		if(isEmpty()) {
+		if (isEmpty()) {
 			throw new StackUnderflowException();
 		}
-		return s.get(s.size()-1);
+		return s.get(s.size() - 1);
 	}
 
 	@Override
@@ -42,25 +42,26 @@ public class NotationStack<T> implements StackInterface<T> {
 
 	@Override
 	public boolean push(T e) throws StackOverflowException {
-		if(s.size() == size) {
+		if (s.size() == size) {
 			throw new StackOverflowException();
 		}
 		s.add(e);
 		return true;
 	}
+
 	@Override
 	public String toString(String delimiter) {
 		String returnString = "";
 		for (T elm : s) {
 			returnString += elm + delimiter;
 		}
-		returnString = returnString.substring(0, returnString.length()-1);
+		returnString = returnString.substring(0, returnString.length() - 1);
 		return returnString;
 	}
-	
+
 	public String toString() {
 		String returnString = "";
-		for(T elm: s) {
+		for (T elm : s) {
 			returnString += elm;
 		}
 		return returnString;

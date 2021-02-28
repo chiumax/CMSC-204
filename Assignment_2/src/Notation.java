@@ -15,7 +15,45 @@ public class Notation {
 	 * @throws InvalidNotationFormatException
 	 */
 	public static double evaluatePostfixExpression(java.lang.String postfixExpr) throws InvalidNotationFormatException {
-		return 0;
+		q = new NotationQueue<String>(postfixExpr.length());
+		s = new NotationStack<String>(postfixExpr.length());
+		
+		int r = 0;
+		
+		NotationStack<String> s_t = new NotationStack<String>(2);
+
+		String[] i = postfixExpr.split("");
+
+		try {
+			for (String c : i) {
+				
+				// if space
+				if (c.equals(" ")) {
+					continue;
+				}
+
+				// if integer
+				if (isInteger(c)) {
+					s.push(c);
+				}
+
+				// if operator
+				if (isOperator(c)) {
+					s_t.push(s.pop());
+					s_t.push(s.pop());
+					s.push(String.valueOf(eval(c,s_t.pop(),s_t.pop())));
+				}
+			}
+
+			// check if one or more values
+			if(s.size()>1) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+//			e.printStackTrace();
+			throw new InvalidNotationFormatException();
+		}
+		return Integer.parseInt(s.toString());
 	}
 
 	/**
@@ -27,7 +65,43 @@ public class Notation {
 	 */
 	public static java.lang.String convertPostfixToInfix(java.lang.String postfix)
 			throws InvalidNotationFormatException {
-		return null;
+		q = new NotationQueue<String>(postfix.length());
+		s = new NotationStack<String>(postfix.length());
+		
+		NotationStack<String> s_t = new NotationStack<String>(2);
+
+		String[] i = postfix.split("");
+
+		try {
+			for (String c : i) {
+				
+				// if space
+				if (c.equals(" ")) {
+					continue;
+				}
+
+				// if integer
+				if (isInteger(c)) {
+					s.push(c);
+				}
+
+				// if operator
+				if (isOperator(c)) {
+					s_t.push(s.pop());
+					s_t.push(s.pop());
+					s.push("("+s_t.pop()+c+s_t.pop()+")");
+				}
+			}
+
+			// check if one or more values
+			if(s.size()>1) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			//e.printStackTrace();
+			throw new InvalidNotationFormatException();
+		}
+		return s.toString();
 	}
 
 	/**
@@ -87,16 +161,19 @@ public class Notation {
 				q.enqueue(s.pop());
 			}
 		} catch (Exception e) {
+			//e.printStackTrace();
 			throw new InvalidNotationFormatException();
 		}
-
 		return q.toString();
 	}
 
-	public static double evaluateInfixExpression(String infixExpr) {
-		// TODO Auto-generated method stub
-		return 0;
+	public static double evaluateInfixExpression(String infixExpr) throws InvalidNotationFormatException {
+		return evaluatePostfixExpression(convertInfixToPostfix(infixExpr));
 	}
+	
+	/*
+	 * HELPER FUNCTIONS
+	 */
 
 	private static boolean isInteger(String s) {
 		try {
@@ -134,6 +211,23 @@ public class Notation {
 		b_1 = b=="*" || b=="/" ? 1 : 0;
 		
 		return a_1>=b_1;
+	}
+	
+	private static int eval(String op, String strA, String strB) {
+		int a = Integer.parseInt(strA);
+		int b = Integer.parseInt(strB);
+		switch(op) {
+		case "+":
+			return a+b;
+		case "-":
+			return a-b;
+		case "*":
+			return a*b;
+		case "/":
+			return a/b;
+		default:
+		}
+		return 0;
 	}
 
 }
